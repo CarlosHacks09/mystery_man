@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: black;
+            font-family: "Wingdings", sans-serif;
+            color: white;
+        }
+
+        .typing {
+            border-right: .15em solid white;
+            /* Simulates the cursor */
+            padding: 0;
+            margin: 0;
+            white-space: nowrap;
+            /* Ensures the text stays in a single line */
+            overflow: hidden;
+            /* Keeps the container from expanding */
+        }
+    </style>
+</head>
+
+<body>
+    <audio src="mus_smile.ogg" autoplay loop></audio>
+    <h1 id="typingEffect" class="typing"></h1>
+
+    <script>
+        function typeEffect(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = ""; // Clear text before starting
+
+            // Array of audio files
+            const audioFiles = [
+                'voice_gaster_1.wav',
+                'voice_gaster_2.wav',
+                'voice_gaster_3.wav',
+                'voice_gaster_4.wav',
+                'voice_gaster_5.wav',
+                'voice_gaster_6.wav',
+                'voice_gaster_7.wav'
+            ];
+
+            function typing() {
+                if (i < text.length) {
+                    // Select a random audio file
+                    const randomAudioIndex = Math.floor(Math.random() * audioFiles.length);
+                    const typingAudio = new Audio(audioFiles[randomAudioIndex]);
+
+                    // Determine if the current character is a letter (A-Z or a-z)
+                    const isLetter = /[A-Za-z]/.test(text.charAt(i));
+
+                    // Play the selected audio file only for letter characters
+                    if (isLetter) {
+                        typingAudio.play();
+                    }
+
+                    // Check if the current character is a sentence-ending punctuation
+                    if (text.charAt(i) === '.' || text.charAt(i) === '!' || text.charAt(i) === '?') {
+                        // Add the punctuation and a line break, except for the last character
+                        element.innerHTML += text.charAt(i) + (i < text.length - 1 ? '<br> <br>' : '');
+                    } else {
+                        // Add the current character
+                        element.innerHTML += text.charAt(i);
+                    }
+                    i++;
+                    setTimeout(typing, speed);
+                }
+            }
+            typing();
+        }
+
+        // Example usage
+        const text = `ENTRY NUMBER SEVENTEEN.
+    DARK DARKER YET DARKER.
+    THE DARKNESS KEEPS GROWING.
+    THE SHADOWS CUTTING DEEPER.
+    PHOTON READINGS NEGATIVE.
+    THIS NEXT EXPERIMENT.
+    SEEMS.
+    VERY.
+    VERY.
+    INTERESTING.
+    WHAT DO YOU TWO THINK`;
+        const element = document.getElementById("typingEffect");
+        typeEffect(element, text, 200); // Adjust speed as needed
+    </script>
