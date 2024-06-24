@@ -9,17 +9,77 @@
             background-color: black;
             font-family: "Wingdings", sans-serif;
             color: white;
+            font-size: xx-large;
         }
 
         .typing {
-            border-right: .15em solid white;
-            /* Simulates the cursor */
+
             padding: 0;
             margin: 0;
             white-space: nowrap;
             /* Ensures the text stays in a single line */
             overflow: hidden;
             /* Keeps the container from expanding */
+        }
+
+        @keyframes trembling {
+            0% {
+                transform: translate(0px, 0px);
+            }
+
+            10% {
+                transform: translate(-1px, 1px);
+            }
+
+            20% {
+                transform: translate(-1px, -1px);
+            }
+
+            30% {
+                transform: translate(1px, 1px);
+            }
+
+            40% {
+                transform: translate(1px, -1px);
+            }
+
+            50% {
+                transform: translate(-1px, 1px);
+            }
+
+            60% {
+                transform: translate(-1px, -1px);
+            }
+
+            70% {
+                transform: translate(1px, 1px);
+            }
+
+            80% {
+                transform: translate(1px, -1px);
+            }
+
+            90% {
+                transform: translate(-1px, 1px);
+            }
+
+            100% {
+                transform: translate(-1px, -1px);
+            }
+        }
+
+        .trembling {
+            display: inline-block;
+            /* Allows transform to affect inline elements like <span> */
+            animation: trembling 0.5s infinite;
+            /* Adjust duration (0.5s) to control speed */
+        }
+
+        body {
+            display: inline-block;
+            /* Allows transform to affect inline elements like <span> */
+            animation: trembling 0.5s infinite;
+            /* Adjust duration (0.5s) to control speed */
         }
     </style>
 </head>
@@ -29,7 +89,7 @@
     <h1 id="typingEffect" class="typing"></h1>
 
     <script>
-        function typeEffect(element, text, speed = 100) {
+        function typeEffect(element, text, speed = 150) {
             let i = 0;
             element.innerHTML = ""; // Clear text before starting
 
