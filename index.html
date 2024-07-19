@@ -10,6 +10,13 @@
             font-family: "Wingdings", sans-serif;
             color: white;
             font-size: x-large;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            animation: trembling 0.5s infinite;
         }
 
         .typing {
@@ -70,29 +77,34 @@
             animation: trembling 0.5s infinite;
         }
 
-        body {
-            display: inline-block;
-            animation: trembling 0.5s infinite;
-        }
-
         #playButton {
-            font-size: large;
+            font-size: xx-large;
             color: white;
             background-color: black;
             border: 2px solid white;
-            padding: 10px 20px;
+            padding: 20px 40px;
             cursor: pointer;
+        }
+
+        #playButtonContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
         }
     </style>
 </head>
 
 <body>
     <audio id="backgroundMusic" src="mus_smile.ogg" loop></audio>
+    <div id="playButtonContainer">
+        <button id="playButton" onclick="startTypingEffect()">PLAY</button>
+    </div>
     <h1 id="typingEffect" class="typing"></h1>
-    <button id="playButton" onclick="startTypingEffect()">Play</button>
     <script>
         function startTypingEffect() {
-            document.getElementById("playButton").style.display = "none"; // Hide play button
+            document.getElementById("playButtonContainer").style.display = "none"; // Hide play button container
             document.getElementById("backgroundMusic").play(); // Start background music
 
             function typeEffect(element, text, speed = 150) {
