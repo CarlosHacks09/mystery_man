@@ -121,6 +121,7 @@
                     'voice_gaster_7.wav'
                 ];
 
+
                 function typing() {
                     if (i < text.length) {
                         const randomAudioIndex = Math.floor(Math.random() * audioFiles.length);
@@ -141,6 +142,7 @@
                         setTimeout(typing, speed);
                     }
                 }
+
                 typing();
             }
 
@@ -155,10 +157,14 @@
     VERY.
     INTERESTING.
     WHAT DO YOU TWO THINK`;
+
             const element = document.getElementById("typingEffect");
-            typeEffect(element, text, 200); // Adjust speed as needed
+            typeEffect(element, text, 120); // Adjust speed as needed
         }
     </script>
+</body>
+
+</html>
 </body>
 
 </html>
