@@ -9,17 +9,14 @@
             background-color: black;
             font-family: "Wingdings", sans-serif;
             color: white;
-            font-size: xx-large;
+            font-size: x-large;
         }
 
         .typing {
-
             padding: 0;
             margin: 0;
             white-space: nowrap;
-            /* Ensures the text stays in a single line */
             overflow: hidden;
-            /* Keeps the container from expanding */
         }
 
         @keyframes trembling {
@@ -70,71 +67,72 @@
 
         .trembling {
             display: inline-block;
-            /* Allows transform to affect inline elements like <span> */
             animation: trembling 0.5s infinite;
-            /* Adjust duration (0.5s) to control speed */
         }
 
         body {
             display: inline-block;
-            /* Allows transform to affect inline elements like <span> */
             animation: trembling 0.5s infinite;
-            /* Adjust duration (0.5s) to control speed */
+        }
+
+        #playButton {
+            font-size: large;
+            color: white;
+            background-color: black;
+            border: 2px solid white;
+            padding: 10px 20px;
+            cursor: pointer;
         }
     </style>
 </head>
 
 <body>
-    <audio src="mus_smile.ogg" autoplay loop></audio>
+    <audio id="backgroundMusic" src="mus_smile.ogg" loop></audio>
     <h1 id="typingEffect" class="typing"></h1>
-
+    <button id="playButton" onclick="startTypingEffect()">Play</button>
     <script>
-        function typeEffect(element, text, speed = 150) {
-            let i = 0;
-            element.innerHTML = ""; // Clear text before starting
+        function startTypingEffect() {
+            document.getElementById("playButton").style.display = "none"; // Hide play button
+            document.getElementById("backgroundMusic").play(); // Start background music
 
-            // Array of audio files
-            const audioFiles = [
-                'voice_gaster_1.wav',
-                'voice_gaster_2.wav',
-                'voice_gaster_3.wav',
-                'voice_gaster_4.wav',
-                'voice_gaster_5.wav',
-                'voice_gaster_6.wav',
-                'voice_gaster_7.wav'
-            ];
+            function typeEffect(element, text, speed = 150) {
+                let i = 0;
+                element.innerHTML = ""; // Clear text before starting
 
-            function typing() {
-                if (i < text.length) {
-                    // Select a random audio file
-                    const randomAudioIndex = Math.floor(Math.random() * audioFiles.length);
-                    const typingAudio = new Audio(audioFiles[randomAudioIndex]);
+                const audioFiles = [
+                    'voice_gaster_1.wav',
+                    'voice_gaster_2.wav',
+                    'voice_gaster_3.wav',
+                    'voice_gaster_4.wav',
+                    'voice_gaster_5.wav',
+                    'voice_gaster_6.wav',
+                    'voice_gaster_7.wav'
+                ];
 
-                    // Determine if the current character is a letter (A-Z or a-z)
-                    const isLetter = /[A-Za-z]/.test(text.charAt(i));
+                function typing() {
+                    if (i < text.length) {
+                        const randomAudioIndex = Math.floor(Math.random() * audioFiles.length);
+                        const typingAudio = new Audio(audioFiles[randomAudioIndex]);
 
-                    // Play the selected audio file only for letter characters
-                    if (isLetter) {
-                        typingAudio.play();
+                        const isLetter = /[A-Za-z]/.test(text.charAt(i));
+
+                        if (isLetter) {
+                            typingAudio.play();
+                        }
+
+                        if (text.charAt(i) === '.' || text.charAt(i) === '!' || text.charAt(i) === '?') {
+                            element.innerHTML += text.charAt(i) + (i < text.length - 1 ? '<br> <br>' : '');
+                        } else {
+                            element.innerHTML += text.charAt(i);
+                        }
+                        i++;
+                        setTimeout(typing, speed);
                     }
-
-                    // Check if the current character is a sentence-ending punctuation
-                    if (text.charAt(i) === '.' || text.charAt(i) === '!' || text.charAt(i) === '?') {
-                        // Add the punctuation and a line break, except for the last character
-                        element.innerHTML += text.charAt(i) + (i < text.length - 1 ? '<br> <br>' : '');
-                    } else {
-                        // Add the current character
-                        element.innerHTML += text.charAt(i);
-                    }
-                    i++;
-                    setTimeout(typing, speed);
                 }
+                typing();
             }
-            typing();
-        }
 
-        // Example usage
-        const text = `ENTRY NUMBER SEVENTEEN.
+            const text = `ENTRY NUMBER SEVENTEEN.
     DARK DARKER YET DARKER.
     THE DARKNESS KEEPS GROWING.
     THE SHADOWS CUTTING DEEPER.
@@ -145,6 +143,10 @@
     VERY.
     INTERESTING.
     WHAT DO YOU TWO THINK`;
-        const element = document.getElementById("typingEffect");
-        typeEffect(element, text, 200); // Adjust speed as needed
+            const element = document.getElementById("typingEffect");
+            typeEffect(element, text, 200); // Adjust speed as needed
+        }
     </script>
+</body>
+
+</html>
