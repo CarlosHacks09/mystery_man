@@ -71,8 +71,6 @@
             100% {
                 transform: translate(-1px, -1px);
             }
-
-
         }
 
         .trembling {
@@ -100,30 +98,27 @@
         @media (max-width: 600px) {
             body {
                 font-size: medium;
-                /* Adjust font size for smaller screens */
                 justify-content: flex-start;
-                /* Change layout alignment if needed */
                 animation: none;
-                /* Disable trembling animation */
             }
         }
     </style>
 </head>
 
 <body>
-    <audio id="backgroundMusic" src="mus_smile.wav" loop></audio>
+    <audio id="backgroundMusic" loop></audio>
     <div id="playButtonContainer">
         <button id="playButton" onclick="startTypingEffect()">PLAY</button>
     </div>
     <h1 id="typingEffect" class="typing"></h1>
     <script>
         function startTypingEffect() {
-            document.getElementById("playButtonContainer").style.display = "none"; // Hide play button container
-            document.getElementById("backgroundMusic").play(); // Start background music
+            document.getElementById("playButtonContainer").style.display = "none";
+            document.getElementById("backgroundMusic").play();
 
             function typeEffect(element, text, speed = 150) {
                 let i = 0;
-                element.innerHTML = ""; // Clear text before starting
+                element.innerHTML = "";
 
                 const audioFiles = [
                     'voice_gaster_1.wav',
@@ -134,7 +129,6 @@
                     'voice_gaster_6.wav',
                     'voice_gaster_7.wav'
                 ];
-
 
                 function typing() {
                     if (i < text.length) {
@@ -157,37 +151,14 @@
                     }
                 }
 
-                function altTyping() {
-                    if (i < altText.length) {
-                        const randomAudioIndex = Math.floor(Math.random() * audioFiles.length);
-                        const typingAudio = new Audio(audioFiles[randomAudioIndex]);
-
-                        const isLetter = /[A-Za-z]/.test(altText.charAt(i));
-
-                        if (isLetter) {
-                            typingAudio.play();
-                        }
-
-                        if (altText.charAt(i) === '.' || altText.charAt(i) === '!' || altText.charAt(i) === '?') {
-                            element.innerHTML += altText.charAt(i) + (i < altText.length - 1 ? '<br> <br>' : '');
-                        } else {
-                            element.innerHTML += altText.charAt(i);
-                        }
-                        i++;
-                        setTimeout(typing, speed);
-                    }
-                }
-
                 typing();
-
-
             }
 
             const altText = `ARE YOU THERE?
             ARE WE CONNECTED?
             EXCELLENT.
-            TRULY EXCELENT.
-            I AM AFRAID THAT THIS EXPERIMENT IS STILL IN THE MAKING.
+            TRULY EXCELLENT.
+            I AM AFRAID THAT WE HAVE NOT BEEN ABLE TO ESTABLISH COMMUNICATION.
             PLEASE, PARDON ME.
             BUT.
             THERE'S SOMETHING YOU COULD HELP ME WITH.
@@ -196,9 +167,9 @@
             VERY.
             INTERESTING.
             
-            (please, enter this page on a Windows device)`
+            (please, enter this page on a Windows device)`;
 
-            text = `ENTRY NUMBER SEVENTEEN.
+            const text = `ENTRY NUMBER SEVENTEEN.
 DARK DARKER YET DARKER.
 THE DARKNESS KEEPS GROWING.
 THE SHADOWS CUTTING DEEPER.
@@ -214,19 +185,23 @@ WHAT DO YOU TWO THINK?`;
 
             if (navigator.platform == "Win32") {
                 typeEffect(element, text, 120);
-            }
-
-            else {
+            } else {
                 typeEffect(element, altText, 120);
+            }
+        }
+
+        window.onload = function () {
+            const audioElement = document.getElementById("backgroundMusic");
+            if (navigator.platform == "Win32") {
+                audioElement.src = "mus_smile.wav";
+            } else {
+                audioElement.src = "AUDIO_ANOTHERHIM.wav";
             }
         }
     </script>
     <script>
         document.title = "[REDACTED]";
     </script>
-</body>
-
-</html>
 </body>
 
 </html>
